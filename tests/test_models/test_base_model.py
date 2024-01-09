@@ -20,7 +20,7 @@ class TestBaseModel(unittest.TestCase):
         self.bm1 = BaseModel()
         self.bm2 = BaseModel()
 
-    #-----test for public instance attributes-----
+#   -----test for public instance attributes-----
     def test_id(self):
         """Tests all edge cases for the instance id"""
 
@@ -28,7 +28,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(self.bm1, "id"))
         self.assertNotEqual(self.bm1.id, self.bm2.id)
         self.assertIsInstance(self.bm1.id, str)
-        
+
     def test_created_at(self):
         """Tests for all edges cases for the instance created_at"""
 
@@ -52,9 +52,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(self.bm2, "updated_at"))
         self.assertIsInstance(self.bm1.updated_at, datetime)
         self.assertIsInstance(self.bm2.updated_at, datetime)
-        
 
-    #------test for public instance methods-------
+#   ------test for public instance methods-------
+    def test_init(self):
+        """Test """
+
     def test_save(self):
         """Tests all edge cases for the save method"""
 
@@ -62,10 +64,10 @@ class TestBaseModel(unittest.TestCase):
         seconds = timedelta(seconds=1)
         bm1_initial_updated_at = self.bm1.updated_at
         bm2_initial_updated_at = self.bm2.updated_at
-        
+
         self.bm1.save()
         self.bm2.save()
-        
+
         self.assertNotEqual(self.bm1.updated_at, bm1_initial_updated_at)
         self.assertNotEqual(self.bm2.updated_at, bm2_initial_updated_at)
         self.assertAlmostEqual(self.bm1.updated_at, now, delta=seconds)
@@ -80,9 +82,9 @@ class TestBaseModel(unittest.TestCase):
         created_at = self.bm1.created_at.isoformat()
 
         expected = {"name": "My first base model", "number": 89,
-                "__class__": "BaseModel", "created_at": created_at,
-                "updated_at": updated_at, "id": self.bm1.id}
-        
+                    "__class__": "BaseModel", "created_at": created_at,
+                    "updated_at": updated_at, "id": self.bm1.id}
+
         self.assertDictEqual(self.bm1.to_dict(), expected)
 
         self.bm2.name = "My second base model"
@@ -91,20 +93,20 @@ class TestBaseModel(unittest.TestCase):
         created_at = self.bm2.created_at.isoformat()
 
         expected = {"name": "My second base model", "number": 53,
-                "__class__": "BaseModel", "created_at": created_at,
-                "updated_at": updated_at, "id": self.bm2.id}
+                    "__class__": "BaseModel", "created_at": created_at,
+                    "updated_at": updated_at, "id": self.bm2.id}
 
         self.assertDictEqual(self.bm2.to_dict(), expected)
 
     def test_str(self):
         """Tests for edge cases for print value of __str__ method"""
-        
+
         self.maxDiff = None
 
         class_name = self.bm1.__class__.__name__
         id = self.bm1.id
         bm1_dict = self.bm1.__dict__
-        
+
         expected = "[{}] ({}) {}".format(class_name, id, bm1_dict)
 
         self.assertEqual(str(self.bm1), expected)
