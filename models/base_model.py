@@ -10,13 +10,21 @@ from datetime import datetime
 class BaseModel:
     """Defines a class BaseModel"""
     
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initializes the instance based on id, date created and date updated
         id is universilly unique identifier for each instances
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
+                if key in ["created_at", "updated_at"]:
+                    value = datetime.fromisoformat(value)
+                setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
         
     def __str__(self):
         """Prints the instances int this format
@@ -32,7 +40,10 @@ class BaseModel:
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        """Returns dictionary containing all keys/value the instance"""
+        """Returns dictionary containing all keys/value the instance
+        (json serialization)
+        """
+
         json = {k: v for k, v in self.__dict__.items()}
         json['__class__'] = self.__class__.__name__
         json['created_at'] = json['created_at'].isoformat()

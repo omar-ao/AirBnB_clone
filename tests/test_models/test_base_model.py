@@ -54,8 +54,31 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.bm2.updated_at, datetime)
 
 #   ------test for public instance methods-------
+
     def test_init(self):
-        """Test """
+        """Test for object recreation with json representation"""
+
+        origin = BaseModel()
+
+        self.assertIs(type(orgin), BaseModel)
+        origin.name = "Omar"
+        origin.number = 89
+        origin_dict = origin.to_dict()
+        copy = BaseModel(**origin_dict)
+        self.assertIs(type(copy), BaseModel)
+        self.assertIsNot(origin, copy)
+        class_map = {
+                     "id": str,
+                     "created_at": datetime,
+                     "updated_at": datetime,
+                     "name": str,
+                     "number": int}
+        for key, value in class_map.items():
+            with self.subTest(key=key, value=value):
+                 self.assertIn(attr, inst.__dict__)
+                 self.assertIs(type(inst.__dict__[key]), value)
+        self.assertEqual(origin.name, "Omar")
+        self.assertEqual(origin.number, 89)
 
     def test_save(self):
         """Tests all edge cases for the save method"""
@@ -114,17 +137,3 @@ class TestBaseModel(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as str_out:
             print(self.bm1, end="")
             self.assertEqual(str_out.getvalue(), expected)
-
-    def test_invalid_input(self):
-        """Tests for invalid arguments"""
-
-        with self.assertRaises(TypeError):
-            BaseModel(5)
-            BaseModel("")
-            BaseModel("Student")
-            BaseModel((1, ))
-            BaseModel([])
-            BaseModel(["Student"])
-            BaseModel(-89)
-            BaseModel({})
-            BaseModel({"name": "Bane"})
