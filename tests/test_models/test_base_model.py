@@ -60,7 +60,7 @@ class TestBaseModel(unittest.TestCase):
 
         origin = BaseModel()
 
-        self.assertIs(type(orgin), BaseModel)
+        self.assertIs(type(origin), BaseModel)
         origin.name = "Omar"
         origin.number = 89
         origin_dict = origin.to_dict()
@@ -75,8 +75,8 @@ class TestBaseModel(unittest.TestCase):
                      "number": int}
         for key, value in class_map.items():
             with self.subTest(key=key, value=value):
-                 self.assertIn(attr, inst.__dict__)
-                 self.assertIs(type(inst.__dict__[key]), value)
+                 self.assertIn(value, origin.__dict__)
+                 self.assertIs(type(origin.__dict__[key]), value)
         self.assertEqual(origin.name, "Omar")
         self.assertEqual(origin.number, 89)
 
