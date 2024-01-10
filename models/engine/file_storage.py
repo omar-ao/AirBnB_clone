@@ -8,6 +8,8 @@ to JSON file and deserializes JSON fiel to instances
 class FileStorage:
     """Defines a class FileStorage that serializes instances
     to JSON file and deserializes JSON file to instances
+    """
+
     def all(self):
         """Returns the dictionary objects"""
 
