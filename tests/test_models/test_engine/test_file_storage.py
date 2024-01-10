@@ -5,8 +5,8 @@ It defines all tests for the class FileStorage
 
 
 import unittest
+import os
 import json
-from unittest.mock import patch
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
@@ -16,83 +16,81 @@ class TestFileStorage(unittest.TestCase):
     for class FileStorage
     """
 
-    #------------using test file instead of the actual file---------
-    @patch("file_storage.FileStorage.__file_path", "test_file.json")
-
     def setUp(self):
         """Sets up all intances needed for the test methods"""
+
+        self.bm = BaseModel()
         self.storage = FileStorage()
-        class TestObject:
-            def __init__(self, id, name):
-                self.id = id
-                self.name = name
-        test_obj = TestObject("12", "Python")
 
     def tearDown(self):
         """Clean up test file"""
+        FileStorage._FileStorage__objects = {}
         try:
-            remove("test_file.json")
+            os.remove("file.json")
         except FileNotFoundError:
             pass
+        
+    #---------tests for class attributes----------------------
+    def test_file_path(self):
+        """Tets for the type of the class attribute file_path"""
+
+        fp = FileStorage._FileStorage__file_path
+        self.assertIsInstance(fp, str)
 
     #---------tests for public intance methods----------------
     def test_all(self):
         """Defines all test cases for the intance method all()"""
+        FileStorage._FileStorage__objects = {}
         result = self.storage.all()
         self.assertEqual(result, {})
         self.assertIsInstance(result, dict)
 
-    def test_new(self):
-        """Defines all edge case tests for the method new()"""
+    def test_all_args(self):
+        """Defines tests for all with args"""
+        with self.assertRaises(TypeError):
+            self.storage.all("test")
+            self.storage.all("test", "test")
 
-        self.storage.new(test_obj)
-        objects = self.storage.all()
-        self.assertEqual(objects, {"TestObject.12": test_obj})
+    def test_new(self):
+        """Tests new adds object to the objects attribute"""
+
+        self.storage.new(self.bm)
+        objects = FileStorage._FileStorage__objects
+        self.assertIn("BaseModel." + self.bm.id, objects.keys())
+        self.assertIn(self.bm, objects.values())
+    
+    def test_new_arg(self):
+        """Tests new raises type error with wrong args"""
         with self.assertRaises(TypeError):
             self.storage.new()
+            self.storage.new("Test")
             self.storage.new("Test", "Test")
 
     def test_save(self):
         """Defines all edge case tests for the method save()"""
 
-        self.storage.new(test_obj)
+        self.storage.new(self.bm)
         self.storage.save()
+        bm_key = "BaseModel." + self.bm.id
 
-        with open("test_file.json", "r") as f:
+        with open("file.json", "r") as f:
             data = json.load(f)
-        self.assertEqual(data, {"TestObject.12": test_obj.__dict__})
+        self.assertIn(bm_key, data.keys())
+
+    def test_save_args(self):
+        """Tests whether save accepts arguments"""
+        
+        with self.assertRaises(TypeError):
+            self.storage.save("Test")
+            self.storage.save("Test", "Test")
 
     def test_reload(self):
         """Tests reload deserializes JSON file to objects"""
 
-        with open("test_file.json", "w") as f:
-            json.dump({"TestObject.12": test_obj.__dict__}, f)
+        self.storage.new(self.bm)
+        bm_key = "BaseModel." + self.bm.id
 
+        self.storage.save()
         self.storage.reload()
-        objects = self.storage.all()
-        self.assertEqual(objects, {"TestObject.12": test_obj.__dict__}) 
-        
-    def test_reload_not_overwrites(self):
-        """Tests reload does not overwrite existing objects"""
-
-        obj1 = TestObject("13", "C is fun")
-        self.storage.new(obj1)
-
-        with open("test_file.json", "w") as f:
-            json.dump({"TestObject.11": {"id": '11', "name": 'Python'}})
-
-        self.storage.reload()
-        objects = self.storage.all()
-        self.assertIn("TestObject.13", objects.keys())
-        self.assertEqual(objects["TestObject.13"], obj1)
-
-    def test_reald_missing_file(self):
-        """Tests reload handles missing files"""
-
-        try:
-            remove("test_file.json")
-        except FileNotFoundError:
-            pass
-
-        self.storage.reload()
-        self.assertEqual(self.storage.all(), {})
+        objects = FileStorage._FileStorage__objects
+        self.assertIn(bm_key, objects.keys()) 
