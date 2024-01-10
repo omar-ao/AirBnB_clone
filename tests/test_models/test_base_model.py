@@ -76,9 +76,13 @@ class TestBaseModel(unittest.TestCase):
         for key, value in class_map.items():
             with self.subTest(key=key, value=value):
                  self.assertIn(key, origin.__dict__)
+                 self.assertIn(key, copy.__dict__)
                  self.assertIs(type(origin.__dict__[key]), value)
+                 self.assertIs(type(copy.__dict__[key]), value)
         self.assertEqual(origin.name, "Omar")
+        self.assertEqual(copy.name, "Omar")
         self.assertEqual(origin.number, 89)
+        self.assertEqual(copy.number, 89)
 
     def test_save(self):
         """Tests all edge cases for the save method"""
