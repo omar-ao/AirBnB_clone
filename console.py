@@ -7,6 +7,7 @@ This module contains the command console for HBnB.
 import cmd
 from models import storage
 from models.base_model import BaseModel
+import shlex
 
 
 class_mapping = {
@@ -84,13 +85,23 @@ class HBNBCommand(cmd.Cmd):
 
         if invalid_input(line):
             return
-        args = list(line.split(" "))
+        args = list(shlex.split(line))
         if len(args) == 2:
             print("** attribute name missing **")
             return
         if len(args) == 3:
             print("** value missing **")
             return
+        
+        cls_name, inst_id, attr_name, attr_value = args[:4]
+        key = cls_name + "." + inst_id
+        objects = storage.all()
+        obj = objects[key]
+        if hasattr(obj, attr_name):
+            attr_type = type(getattr(obj, attr_name))
+            setattr(obj, attr_name, attr_type(attr_value))
+        else:
+            setattr(obj, attr_name, attr_value)
 
     def do_quit(self, line):
         """Quit command to exit the program"""
