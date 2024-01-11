@@ -7,11 +7,13 @@ This module contains the command console for HBnB.
 import cmd
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 import shlex
 
 
 class_mapping = {
-        "BaseModel": BaseModel
+        "BaseModel": BaseModel,
+        "User": User
         }
 
 class HBNBCommand(cmd.Cmd):
