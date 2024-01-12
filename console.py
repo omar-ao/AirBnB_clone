@@ -5,6 +5,7 @@ This module contains the command console for HBnB.
 
 
 import cmd
+import re
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -31,6 +32,24 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
+    def precmd(self, line):
+        """
+        Executes before every command
+        Handles command lines arguments
+        starting with the class names e.g User.all()
+        """
+        pattern = re.compile(r'\s+|\(|\)|"|\.')
+        args = re.split(pattern, line)
+
+        if '(' not in line or ')' not in line:
+            return line
+
+        if args[0] not in class_mapping:
+            return line
+
+        if "all" in args:
+            return "all " + args[0]
+        
     def do_create(self, line):
         """
         Creates a new instance and saves it to 
@@ -77,17 +96,20 @@ class HBNBCommand(cmd.Cmd):
         based or not on the class name
         """
         objects = storage.all()
+        all_objs = []
         if line:
             class_name = list(line.split(" "))[0]
             if invalid_class_name(class_name):
                 return
             for key in objects.keys():
                 if class_name in key.split("."):
-                    print(objects[key])
+                    all_objs.append(str(objects[key]))
+            print(all_objs)
             return
 
         for key in objects.keys():
-            print(objects[key])
+            all_objs.append(str(objects[key]))
+        print(all_objs)
 
     def do_update(self, line):
         """
