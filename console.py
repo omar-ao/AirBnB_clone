@@ -48,7 +48,22 @@ class HBNBCommand(cmd.Cmd):
             return line
 
         if "all" in args:
-            return "all " + args[0]
+            return args[1] + " " + args[0]
+        if "count" in args:
+            return args[1] + " " + args[0]
+
+    def do_count(self, line):
+        """
+        Retrieves the number of instances of a class
+        """
+        count = 0
+        if line not in class_mapping:
+            return
+        objects = storage.all()
+        for key in objects.keys():
+            if line in key:
+                count += 1
+        print(count)
         
     def do_create(self, line):
         """
