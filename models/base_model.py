@@ -10,7 +10,7 @@ from models import storage
 
 class BaseModel:
     """Defines a class BaseModel"""
-    
+
     def __init__(self, *args, **kwargs):
         """Initializes the instance based on id, date created and date updated
         id is universilly unique identifier for each instances
@@ -28,7 +28,7 @@ class BaseModel:
             self.updated_at = datetime.now()
 
             storage.new(self)
-        
+
     def __str__(self):
         """Prints the instances int this format
         [<class name>] (<self.id>) <self.__dict__>
@@ -52,5 +52,5 @@ class BaseModel:
         json['__class__'] = self.__class__.__name__
         json['created_at'] = json['created_at'].isoformat()
         json['updated_at'] = json['updated_at'].isoformat()
-        
+
         return json

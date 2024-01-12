@@ -27,6 +27,7 @@ class_mapping = {
         "Review": Review
         }
 
+
 class HBNBCommand(cmd.Cmd):
     """The HBnBCommand interpreter"""
 
@@ -38,11 +39,13 @@ class HBNBCommand(cmd.Cmd):
         Handles command lines arguments
         starting with the class names e.g User.all()
         """
-        pattern = re.compile(r'\s+|\(|\)|"|\.')
-        args = re.split(pattern, line)
 
         if '(' not in line or ')' not in line:
             return line
+
+        pattern = re.compile(r'\s+|\(|\)|"|\.')
+        args = re.split(pattern, line)
+        args = [arg for arg in args if arg not in (',', '')]
 
         if args[0] not in class_mapping:
             return line
@@ -51,6 +54,8 @@ class HBNBCommand(cmd.Cmd):
             return args[1] + " " + args[0]
         if "count" in args:
             return args[1] + " " + args[0]
+        if "show" in args:
+            return args[1] + " " + args[0] + " " + args[2]
 
     def do_count(self, line):
         """
@@ -64,10 +69,10 @@ class HBNBCommand(cmd.Cmd):
             if line in key:
                 count += 1
         print(count)
-        
+
     def do_create(self, line):
         """
-        Creates a new instance and saves it to 
+        Creates a new instance and saves it to
         JSON file and prints the instance id
         """
         class_name = line
@@ -102,7 +107,7 @@ class HBNBCommand(cmd.Cmd):
         class_name, instance_id = args[:2]
         key = class_name + "." + instance_id
         objects = storage.all()
-        del(objects[key])
+        del objects[key]
         storage.save()
 
     def do_all(self, line):
@@ -141,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 3:
             print("** value missing **")
             return
-        
+
         cls_name, inst_id, attr_name, attr_value = args[:4]
         key = cls_name + "." + inst_id
         objects = storage.all()
@@ -164,6 +169,7 @@ class HBNBCommand(cmd.Cmd):
         """Does nothing for *empty line + ENTER* (overide)"""
         pass
 
+
 def invalid_input(line):
     """Validates input line"""
     args = list(line.split(" "))
@@ -183,6 +189,7 @@ def invalid_input(line):
 
     return False
 
+
 def invalid_class_name(class_name):
     """
     Handles missing and invalid class name
@@ -194,6 +201,7 @@ def invalid_class_name(class_name):
         print("** class doesn't exist **")
         return True
     return False
+
 
 def invalid_instance_id(class_name, instance_id):
     """
@@ -210,6 +218,7 @@ def invalid_instance_id(class_name, instance_id):
         print("** no instance id found **")
         return True
     return False
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
