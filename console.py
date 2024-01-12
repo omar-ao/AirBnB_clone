@@ -38,11 +38,13 @@ class HBNBCommand(cmd.Cmd):
         Handles command lines arguments
         starting with the class names e.g User.all()
         """
-        pattern = re.compile(r'\s+|\(|\)|"|\.')
-        args = re.split(pattern, line)
 
         if '(' not in line or ')' not in line:
             return line
+
+        pattern = re.compile(r'\s+|\(|\)|"|\.')
+        args = re.split(pattern, line)
+        args = [arg for arg in args if arg not in (',', '')]
 
         if args[0] not in class_mapping:
             return line
@@ -51,6 +53,8 @@ class HBNBCommand(cmd.Cmd):
             return args[1] + " " + args[0]
         if "count" in args:
             return args[1] + " " + args[0]
+        if "show" in args:
+            return args[1] + " " + args[0] + " " + args[2]
 
     def do_count(self, line):
         """
