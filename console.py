@@ -55,10 +55,16 @@ class HBNBCommand(cmd.Cmd):
         if "count" in args:
             return args[1] + " " + args[0]
         if "show" in args:
+            if len(args) < 3:
+                return args[1] + " " + args[0]
             return args[1] + " " + args[0] + " " + args[2]
         if "destroy" in args:
+            if len(args) < 3:
+                return args[1] + " " + args[0]
             return args[1] + " " + args[0] + " " + args[2]
         if "update" in args:
+            if len(args) < 4:
+                return line
             class_name = args[1] + " "
             func = args[0] + " "
             inst_id = args[2] + " "
@@ -217,14 +223,14 @@ def invalid_instance_id(class_name, instance_id):
     Handles missing and invalid instance id
     """
     if not instance_id:
-        print("** intance id missing **")
+        print("** instance id missing **")
         return True
     key = class_name + "." + instance_id
     objects = storage.all()
     if not objects:
         return True
     if key not in objects.keys():
-        print("** no instance id found **")
+        print("** no instance found **")
         return True
     return False
 
