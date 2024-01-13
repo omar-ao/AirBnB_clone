@@ -57,6 +57,13 @@ class HBNBCommand(cmd.Cmd):
             return args[1] + " " + args[0] + " " + args[2]
         if "destroy" in args:
             return args[1] + " " + args[0] + " " + args[2]
+        if "update" in args:
+            class_name = args[1] + " "
+            func = args[0] + " "
+            inst_id = args[2] + " "
+            atrr_name = args[3] + " "
+            atrr_val = args[4]
+            return class_name + func + inst_id + atrr_name + atrr_val
 
     def do_count(self, line):
         """
