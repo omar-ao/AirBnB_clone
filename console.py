@@ -217,14 +217,14 @@ def invalid_instance_id(class_name, instance_id):
     Handles missing and invalid instance id
     """
     if not instance_id:
-        print("** intance id missing **")
+        print("** instance id missing **")
         return True
     key = class_name + "." + instance_id
     objects = storage.all()
     if not objects:
         return True
     if key not in objects.keys():
-        print("** no instance id found **")
+        print("** no instance found **")
         return True
     return False
 
