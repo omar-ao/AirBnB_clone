@@ -3,9 +3,9 @@
 It defines one class BaseModel
 """
 
-import uuid
 from datetime import datetime
 from models import storage
+import uuid
 
 
 class BaseModel:

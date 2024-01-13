@@ -4,11 +4,11 @@ It defines all tests for the class FileStorage
 """
 
 
-import unittest
-import os
-import json
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+import json
+import os
+import unittest
 
 
 class TestFileStorage(unittest.TestCase):
@@ -29,15 +29,15 @@ class TestFileStorage(unittest.TestCase):
             os.remove("file.json")
         except FileNotFoundError:
             pass
-        
-    #---------tests for class attributes----------------------
+
+# -------------tests for class attributes----------------------
     def test_file_path(self):
         """Tets for the type of the class attribute file_path"""
 
         fp = FileStorage._FileStorage__file_path
         self.assertIsInstance(fp, str)
 
-    #---------tests for public intance methods----------------
+# ---------tests for public intance methods----------------
     def test_all(self):
         """Defines all test cases for the intance method all()"""
         FileStorage._FileStorage__objects = {}
@@ -58,7 +58,7 @@ class TestFileStorage(unittest.TestCase):
         objects = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + self.bm.id, objects.keys())
         self.assertIn(self.bm, objects.values())
-    
+
     def test_new_arg(self):
         """Tests new raises type error with wrong args"""
         with self.assertRaises(TypeError):
@@ -79,7 +79,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_save_args(self):
         """Tests whether save accepts arguments"""
-        
+
         with self.assertRaises(TypeError):
             self.storage.save("Test")
             self.storage.save("Test", "Test")
@@ -93,4 +93,4 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         self.storage.reload()
         objects = FileStorage._FileStorage__objects
-        self.assertIn(bm_key, objects.keys()) 
+        self.assertIn(bm_key, objects.keys())

@@ -4,16 +4,16 @@ This module contains the command console for HBnB.
 """
 
 
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models import storage
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 import cmd
 import re
-from models import storage
-from models.base_model import BaseModel
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
 import shlex
 
 
@@ -56,6 +56,15 @@ class HBNBCommand(cmd.Cmd):
             return args[1] + " " + args[0]
         if "show" in args:
             return args[1] + " " + args[0] + " " + args[2]
+        if "destroy" in args:
+            return args[1] + " " + args[0] + " " + args[2]
+        if "update" in args:
+            class_name = args[1] + " "
+            func = args[0] + " "
+            inst_id = args[2] + " "
+            atrr_name = args[3] + " "
+            atrr_val = args[4]
+            return class_name + func + inst_id + atrr_name + atrr_val
 
     def do_count(self, line):
         """

@@ -4,12 +4,12 @@ It contains tests for the BaseModel class
 """
 
 
-import unittest
-from models.base_model import BaseModel
 from datetime import datetime
 from datetime import timedelta
 from io import StringIO
+from models.base_model import BaseModel
 from unittest.mock import patch
+import unittest
 
 
 class TestBaseModel(unittest.TestCase):
@@ -75,10 +75,10 @@ class TestBaseModel(unittest.TestCase):
                      "number": int}
         for key, value in class_map.items():
             with self.subTest(key=key, value=value):
-                 self.assertIn(key, origin.__dict__)
-                 self.assertIn(key, copy.__dict__)
-                 self.assertIs(type(origin.__dict__[key]), value)
-                 self.assertIs(type(copy.__dict__[key]), value)
+                self.assertIn(key, origin.__dict__)
+                self.assertIn(key, copy.__dict__)
+                self.assertIs(type(origin.__dict__[key]), value)
+                self.assertIs(type(copy.__dict__[key]), value)
         self.assertEqual(origin.name, "Omar")
         self.assertEqual(copy.name, "Omar")
         self.assertEqual(origin.number, 89)

@@ -4,8 +4,8 @@ It defines a class FileStorage that serializes instances
 to JSON file and deserializes JSON fiel to instances
 """
 
-import os
 import json
+import os
 
 
 class FileStorage:
