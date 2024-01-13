@@ -56,11 +56,11 @@ class HBNBCommand(cmd.Cmd):
             return args[1] + " " + args[0]
         if "show" in args:
             if len(args) < 3:
-                return args[1] + " " + args[0]
+                return line
             return args[1] + " " + args[0] + " " + args[2]
         if "destroy" in args:
             if len(args) < 3:
-                return args[1] + " " + args[0]
+                return line
             return args[1] + " " + args[0] + " " + args[2]
         if "update" in args:
             if len(args) < 4:
