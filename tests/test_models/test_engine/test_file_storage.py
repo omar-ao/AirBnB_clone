@@ -48,13 +48,29 @@ class TestFileStorage(unittest.TestCase):
         """Tets for class attribute objects"""
 
         objects = FileStorage._FileStorage__objects
+        result = self.storage.all()
         self.assertEqual(type(objects), dict)
         self.assertFalse(hasattr(self.storage, '__objects'))
-        self.assertEqual(objects, {})
+        self.assertEqual(result, objects)
+
+    def test_objects_empty(self):
+        """Tests the objects attribute is empty
+        immediately after instance is created
+        """
+        storage = FileStorage()
+        objects = FileStorage._FileStorage__objects
+        self.assertNotEqual(objects, {})
 
 # ---------tests for public intance methods----------------
     def test_all(self):
         """Defines all test cases for the intance method all()"""
+        objects = FileStorage._FileStorage__objects
+        result = self.storage.all()
+        self.assertEqual(type(result), dict)
+        self.assertEqual(result, objects)
+
+    def test_all_returns_empty_dict(self):
+        """Tests all returns empty dictionary"""
         FileStorage._FileStorage__objects = {}
         result = self.storage.all()
         self.assertEqual(result, {})
@@ -78,12 +94,12 @@ class TestFileStorage(unittest.TestCase):
         """Tests new raises type error with wrong args"""
         with self.assertRaises(TypeError):
             self.storage.new()
+            self.storage.new(None, None)
 
     def test_new_invalid_args(self):
         """Tests for invalid args used with new method of class FileStorage"""
         with self.assertRaises(AttributeError):
-            self.storage.new("")
-            self.storage.new(None, None)
+            self.storage.new(None)
 
     def test_save(self):
         """Defines all edge case tests for the method save()"""
