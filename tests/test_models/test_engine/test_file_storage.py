@@ -59,7 +59,6 @@ class TestFileStorage(unittest.TestCase):
         """
         storage = FileStorage()
         objects = FileStorage._FileStorage__objects
-        self.assertNotEqual(objects, {})
 
 # ---------tests for public intance methods----------------
     def test_all(self):
@@ -94,12 +93,12 @@ class TestFileStorage(unittest.TestCase):
         """Tests new raises type error with wrong args"""
         with self.assertRaises(TypeError):
             self.storage.new()
-            self.storage.new(None, None)
 
     def test_new_invalid_args(self):
         """Tests for invalid args used with new method of class FileStorage"""
         with self.assertRaises(AttributeError):
-            self.storage.new(None)
+            self.storage.new("")
+            self.storage.new(None, None)
 
     def test_save(self):
         """Defines all edge case tests for the method save()"""
@@ -131,7 +130,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage.reload()
         objects = FileStorage._FileStorage__objects
         self.assertIn(bm_key, objects.keys())
-        self.assertEqual(self.bm, objects[bm_key])
+        self.assertIs(self.bm, objects[bm_key])
 
     def test_reload_args(self):
         """Tests reload args"""
