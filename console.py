@@ -47,22 +47,31 @@ class HBNBCommand(cmd.Cmd):
         args = re.split(pattern, line)
         args = [arg for arg in args if arg not in (',', '')]
 
-        if args[0] not in class_mapping:
-            return line
-
         if "all" in args:
+            if args[0] not in class_mapping:
+                return args[1] + " " + args[0]
             return args[1] + " " + args[0]
         if "count" in args:
+            if args[0] not in class_mapping:
+                return args[1] + " " + args[0]
             return args[1] + " " + args[0]
         if "show" in args:
+            if len(args) == 1:
+                return args[0]
+            if args[0] not in class_mapping:
+                return args[1] + " " + args[0]
             if len(args) < 3:
-                return line
+                return args[1] + " " + args[0]
             return args[1] + " " + args[0] + " " + args[2]
         if "destroy" in args:
+            if args[0] not in class_mapping:
+                return args[1] + " " + args[0]
             if len(args) < 3:
                 return line
             return args[1] + " " + args[0] + " " + args[2]
         if "update" in args:
+            if args[0] not in class_mapping:
+                return args[1] + " " + args[0]
             if len(args) < 4:
                 return line
             class_name = args[1] + " "
@@ -71,6 +80,7 @@ class HBNBCommand(cmd.Cmd):
             atrr_name = args[3] + " "
             atrr_val = args[4]
             return class_name + func + inst_id + atrr_name + atrr_val
+        return args[0]
 
     def do_count(self, line):
         """
