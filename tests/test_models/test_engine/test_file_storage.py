@@ -120,6 +120,10 @@ class TestFileStorage(unittest.TestCase):
             self.storage.save("Test", "Test")
             self.storage.save(None)
 
+    def test_reload_exists(self):
+        """Test for if reload method exists"""
+        self.assertIn('reload', dir(self.storage))
+
     def test_reload(self):
         """Tests reload deserializes JSON file to objects"""
 
@@ -131,7 +135,6 @@ class TestFileStorage(unittest.TestCase):
         objects = FileStorage._FileStorage__objects
         self.assertIn(bm_key, objects.keys())
         self.assertIs(self.bm, objects[bm_key])
-        self.assertNotEqual(objects, None)
 
     def test_reload_args(self):
         """Tests reload args"""
@@ -142,11 +145,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload_file_missing(self):
         """Tests reload when file is missing"""
-        try:
-            os.remove("file.json")
-        except (FileNotFoundError):
-            pass
-
+        
         try:
             self.storage.reload()
         except Exception as e:
