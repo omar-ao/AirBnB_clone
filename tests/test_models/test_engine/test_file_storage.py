@@ -4,6 +4,7 @@ It defines all tests for the class FileStorage
 """
 
 
+from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 import json
@@ -120,10 +121,6 @@ class TestFileStorage(unittest.TestCase):
             self.storage.save("Test", "Test")
             self.storage.save(None)
 
-    def test_reload_exists(self):
-        """Test for if reload method exists"""
-        self.assertIn('reload', dir(self.storage))
-
     def test_reload(self):
         """Tests reload deserializes JSON file to objects"""
 
@@ -131,7 +128,7 @@ class TestFileStorage(unittest.TestCase):
         bm_key = "BaseModel." + self.bm.id
 
         self.storage.save()
-        self.storage.reload()
+        storage.reload()
         objects = FileStorage._FileStorage__objects
         self.assertIn(bm_key, objects.keys())
         self.assertIs(self.bm, objects[bm_key])

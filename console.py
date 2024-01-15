@@ -15,6 +15,7 @@ from models.user import User
 import cmd
 import re
 import shlex
+import json
 
 
 class_mapping = {
@@ -72,6 +73,16 @@ class HBNBCommand(cmd.Cmd):
         if "update" in args:
             if args[0] not in class_mapping:
                 return args[1] + " " + args[0]
+            # capture dictionary from the inpute
+            json_str = re.findall(r'({.*.*})', line)
+            if json_str:
+                json_str = json_str[0].replace("'", "\"")
+                dict_obj = json.loads(json_str)
+                for k, v in dict_obj.items():
+                    comnd = f"{args[1]} {args[0]} {args[2]} {k} {v}"
+                    self.onecmd(comnd)
+                return ''
+
             if len(args) < 4:
                 return line
             class_name = args[1] + " "
