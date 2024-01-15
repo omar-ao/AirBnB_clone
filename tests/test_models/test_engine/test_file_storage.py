@@ -131,6 +131,7 @@ class TestFileStorage(unittest.TestCase):
         objects = FileStorage._FileStorage__objects
         self.assertIn(bm_key, objects.keys())
         self.assertIs(self.bm, objects[bm_key])
+        self.assertNotEqual(objects, None)
 
     def test_reload_args(self):
         """Tests reload args"""
