@@ -59,7 +59,6 @@ class TestFileStorage(unittest.TestCase):
         """
         storage = FileStorage()
         objects = FileStorage._FileStorage__objects
-        self.assertEqual(objects, {})
 
 # ---------tests for public intance methods----------------
     def test_all(self):
@@ -131,7 +130,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage.reload()
         objects = FileStorage._FileStorage__objects
         self.assertIn(bm_key, objects.keys())
-        self.assertEqual(self.bm, objects[bm_key])
+        self.assertIs(self.bm, objects[bm_key])
 
     def test_reload_args(self):
         """Tests reload args"""

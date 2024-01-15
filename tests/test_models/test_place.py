@@ -45,7 +45,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(self.pc1.name, "")
         self.pc1.name = "The Cloud House"
         self.assertEqual(self.pc1.description, "")
-        self.pc1.description = "A serene environment in the Hilmalayas"
+        self.pc1.description = "A serene environment"
         self.assertEqual(self.pc1.number_rooms, 0)
         self.pc1.number_rooms = 3
         self.assertEqual(self.pc1.number_bathrooms, 0)
@@ -60,7 +60,7 @@ class TestPlace(unittest.TestCase):
         self.pc1.longitude = 56.78
         self.assertEqual(self.pc1.amenity_ids, [])
         self.pc1.amenity_ids = ["chess", "pool", "XBOX"]
-    
+
         attr_map = {
                     "id": str,
                     "city_id": str,
@@ -86,7 +86,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(self.pc1.city_id, "NV.12345")
         self.assertEqual(self.pc1.user_id, "Scott.67890")
         self.assertEqual(self.pc1.name, "The Cloud House")
-        self.assertEqual(self.pc1.description, "A serene environment in the Hilmalayas")
+        self.assertEqual(self.pc1.description, "A serene environment")
         self.assertEqual(self.pc1.number_rooms, 3)
         self.assertEqual(self.pc1.number_bathrooms, 2)
         self.assertEqual(self.pc1.max_guest, 4)

@@ -41,7 +41,6 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(self.am1.name, "")
         self.am1.name = "PUBG Mobile"
 
-    
         attr_map = {
                     "id": str,
                     "name": str,

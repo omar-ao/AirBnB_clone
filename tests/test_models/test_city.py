@@ -43,7 +43,6 @@ class TestCity(unittest.TestCase):
         self.assertEqual(self.ct1.state_id, "")
         self.ct1.state_id = "123-AB45-67890"
 
-    
         attr_map = {
                     "id": str,
                     "name": str,

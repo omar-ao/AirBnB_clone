@@ -45,7 +45,6 @@ class TestState(unittest.TestCase):
         self.assertEqual(self.rv1.text, "")
         self.rv1.text = "It's a wonderful location"
 
-    
         attr_map = {
                     "id": str,
                     "place_id": str,

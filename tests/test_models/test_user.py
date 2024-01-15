@@ -47,7 +47,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.us1.last_name, "")
         self.us1.last_name = "Richard"
 
-    
         attr_map = {
                     "id": str,
                     "email": str,

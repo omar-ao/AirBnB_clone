@@ -41,7 +41,6 @@ class TestState(unittest.TestCase):
         self.assertEqual(self.st1.name, "")
         self.st1.name = "Ontario"
 
-    
         attr_map = {
                     "id": str,
                     "name": str,

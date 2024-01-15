@@ -27,9 +27,7 @@ class FileStorage:
         Args:
             obj: Object that is set to the Objects dictionary
         """
-        if obj is not None:
-            key = obj.__class__.__name__ + "." + obj.id
-            self.__objects[key] = obj
+        self.__objects.update({f"{obj.__class__.__name__}.{obj.id}": obj})
 
     def save(self):
         """Serializes objects to the JSON file"""
