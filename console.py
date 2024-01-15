@@ -238,6 +238,7 @@ def invalid_instance_id(class_name, instance_id):
     key = class_name + "." + instance_id
     objects = storage.all()
     if not objects:
+        print("** no instance found **")
         return True
     if key not in objects.keys():
         print("** no instance found **")
