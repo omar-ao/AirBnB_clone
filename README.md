@@ -26,7 +26,7 @@ The console will be a tool to validate this storage engine.
 
 ### How does it work ?
 
-When the backend starts, an instance of `FileStorage`, named `storage`, is created by the command interpreter. This `storage` object is loaded or reloaded from class instances in the `file.json` JSON file. As class instances undergo creation, updates, or deletion, the `storage` object records these changes in the `file.json`.
+When the backend starts, an instance of `FileStorage`, named `storage`, is created by the command interpreter. This `storage` object is loaded or reloaded from class instances in the `file.json` (JSON file). As class instances undergo creation, updates, or deletion, the `storage` object records these changes in the `file.json`.
 
 ### Using The Command Interpreter
 
@@ -92,9 +92,9 @@ $
 0x01 | EOF | `Ctrl + d` | nil | Exits the program
 0x02 | empty line | ` ` | nil | do nothing
 0x03 | create | `create <class name>` | nil | creates an instance of the class
-0x04 | show | `show <class name> <id number>` | <class name>.show(<id>) | Prints the string representation of an instance based on the class name and id
-0x05 | destroy | destroy <class name> <id number> | <class name>.destroy(<id>) | Deletes an instance based on the class name and id ( and saves the change into the `json.file`)
-0x06 | all | `all` or `all <class name>` | <class name>.all() | Prints all string representation of all instances based or not on the class name
+0x04 | show | `show <class name> <id number>` | `<class name>.show(<id>)` | Prints the string representation of an instance based on the class name and id
+0x05 | destroy | `destroy <class name> <id number>` | `<class name>.destroy(<id>)` | Deletes an instance based on the class name and id ( and saves the change into the `json.file`)
+0x06 | all | `all` or `all <class name>` | `<class name>.all()` | Prints all string representation of all instances based or not on the class name
 0x07 | update | `update <class name> <id number> <attribute to update> "<new value of attribute>"` | simple form:`<class name>.update(<id>, <attribute name>, <attribute value>)` update more than 1 attribute(using dictionaries): `<class name>.update(<id>, <dictionary representation>)` | Updates an instance based on the class name and id by adding or updating attribute (save the change into the `file.json`). If there are more commands, the command interpreter will only count the first attribute with its value
 0x08 | count | `count <class name>` | `<class name>.count()` | retrieve the number of instances of a class
 
@@ -182,12 +182,10 @@ vagrant@ubuntu:~/AirBnB$
 ```
 
 ## Environment & Requirements
+
 - Language: Python3
 - OS: Ubuntu 20.04 LTS
 - Style guidelines: [PEP 8 (version 1.7)](https://www.python.org/dev/peps/pep-0008/)
-- All your test files should be inside a folder tests.
-- All your test files should be python files (`extension: .py`)
-- All your test files and folders should start by `test_`
 - All your tests should be executed by using this command: `python3 -m unittest discover tests`
 
 ## Credits

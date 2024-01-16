@@ -108,8 +108,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Creates a new instance and saves it to
-        JSON file and prints the instance id
+        Creates a new instance and saves it
         """
         class_name = line
         if invalid_class_name(class_name):
@@ -122,7 +121,6 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """
         Prints the string representation of an instance
-        based on the class name and id
         """
         if invalid_input(line):
             return
@@ -170,7 +168,6 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, line):
         """
         Updates an instance based on the class name and id
-        by adding or updating attribute
         """
 
         if invalid_input(line):
