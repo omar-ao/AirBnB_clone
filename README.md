@@ -1,6 +1,6 @@
 # AirBnB clone
 
-![Image](config/HBnB_logo_D.png)
+![Image](config/HBnB_logo_L.png)
 
 > This is the first part of the **AirBnB Clone** Project. The goal of the entire project is to deploy on your server a simple copy of the AirBnB website. All the features will not be implemented, only some of them to cover all fundamental concepts of the higher level programming track. The entire application won't be built all at once, but step by step with different projects.
 
@@ -10,23 +10,26 @@ The AirBnB clone project starts with this project; **The Console**. It is a comm
 
 ## The Console
 
-![Image](config/Web_static.png)
+![Image](config/0x01-HBnB-Web_static.png)
 
 This phase involves;
-- Creating your own data model
-- Manage (create, update, destroy, etc) objects via a console / command interpreter
-- Store and persist objects to a file (JSON file)
-The first piece is to manipulate a powerful storage system. This storage engine will give an abstraction between __*My object*__ and __*How they are stored and persisted*__. This means: from your console code (*the command interpreter itself*) and from the front-end and RestAPI you will build later, you won’t have to pay attention (take care) of how your objects are stored.
+- Creating your own **Data Model**
+- **Managing objects** (create, update, destroy, etc) via a console / command interpreter
+- **Store** and **Persist objects** to a file (JSON file)
+
+The first piece is to manipulate a powerful storage system. This storage engine will give an abstraction between __*My object*__ and __*How they are stored and persisted*__.
+> This means: from your console code (*the command interpreter itself*) and from the front-end and RestAPI you will build later, you won’t have to pay attention (take care) of how your objects are stored.
 
 This abstraction will also allow you to change the type of storage easily without updating all of your codebase. [`FileStorage`](https://github.com/omar-ao/AirBnB_clone/blob/master/models/engine/file_storage.py)
 
-The console will be a tool to validate this storage engine.
+The __*console*__ will be a tool to validate this storage engine.
 
 > **Web static** will involve creating the **HTML** of your application and template of each object. (*HTML/CSS*)
 
 ### How does it work ?
 
-When the backend starts, an instance of `FileStorage`, named `storage`, is created by the command interpreter. This `storage` object is loaded or reloaded from class instances in the `file.json` JSON file. As class instances undergo creation, updates, or deletion, the `storage` object records these changes in the `file.json`.
+When the backend starts, an instance of [`FileStorage`](https://github.com/omar-ao/AirBnB_clone/blob/master/models/engine/file_storage.py), named `storage`, is created by the command interpreter. This `storage` object is loaded or reloaded from class instances in the `file.json` (JSON file) (see [here](https://github.com/omar-ao/AirBnB_clone/blob/master/models/__init__.py)). As class instances undergo creation, updates, or deletion, the `storage` object __*records*__ these changes in the `file.json`.
+> (via the save method of the [BaseModel](https://github.com/omar-ao/AirBnB_clone/blob/master/models/base_model.py) class).
 
 ### Using The Command Interpreter
 
@@ -92,21 +95,20 @@ $
 0x01 | EOF | `Ctrl + d` | nil | Exits the program
 0x02 | empty line | ` ` | nil | do nothing
 0x03 | create | `create <class name>` | nil | creates an instance of the class
-0x04 | show | `show <class name> <id number>` | <class name>.show(<id>) | Prints the string representation of an instance based on the class name and id
-0x05 | destroy | destroy <class name> <id number> | <class name>.destroy(<id>) | Deletes an instance based on the class name and id ( and saves the change into the `json.file`)
-0x06 | all | `all` or `all <class name>` | <class name>.all() | Prints all string representation of all instances based or not on the class name
+0x04 | show | `show <class name> <id number>` | `<class name>.show(<id>)` | Prints the string representation of an instance based on the class name and id
+0x05 | destroy | `destroy <class name> <id number>` | `<class name>.destroy(<id>)` | Deletes an instance based on the class name and id ( and saves the change into the `json.file`)
+0x06 | all | `all` or `all <class name>` | `<class name>.all()` | Prints all string representation of all instances based or not on the class name
 0x07 | update | `update <class name> <id number> <attribute to update> "<new value of attribute>"` | simple form:`<class name>.update(<id>, <attribute name>, <attribute value>)` update more than 1 attribute(using dictionaries): `<class name>.update(<id>, <dictionary representation>)` | Updates an instance based on the class name and id by adding or updating attribute (save the change into the `file.json`). If there are more commands, the command interpreter will only count the first attribute with its value
 0x08 | count | `count <class name>` | `<class name>.count()` | retrieve the number of instances of a class
 
 **Allowed Classes**:
-- BaseModel
-- User
-- Place
-- State
-- City
-- Amenity
-- Review
-- User
+- [BaseModel](https://github.com/omar-ao/AirBnB_clone/blob/master/models/base_model.py)
+- [User](https://github.com/omar-ao/AirBnB_clone/blob/master/models/user.py)
+- [Place](https://github.com/omar-ao/AirBnB_clone/blob/master/models/place.py)
+- [State](https://github.com/omar-ao/AirBnB_clone/blob/master/models/state.py)
+- [City](https://github.com/omar-ao/AirBnB_clone/blob/master/models/city.py)
+- [Amenity](https://github.com/omar-ao/AirBnB_clone/blob/master/models/amenity.py)
+- [Review](https://github.com/omar-ao/AirBnB_clone/blob/master/models/review.py)
 
 > Usage illustrated below:
 
@@ -182,12 +184,10 @@ vagrant@ubuntu:~/AirBnB$
 ```
 
 ## Environment & Requirements
+
 - Language: Python3
 - OS: Ubuntu 20.04 LTS
 - Style guidelines: [PEP 8 (version 1.7)](https://www.python.org/dev/peps/pep-0008/)
-- All your test files should be inside a folder tests.
-- All your test files should be python files (`extension: .py`)
-- All your test files and folders should start by `test_`
 - All your tests should be executed by using this command: `python3 -m unittest discover tests`
 
 ## Credits

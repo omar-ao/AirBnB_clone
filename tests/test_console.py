@@ -104,6 +104,24 @@ class TestHBNBCommand(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("help EOF"))
             self.assertEqual(text, f.getvalue().strip())
 
+    def test_help_create(self):
+        text = ("Creates a new instance and saves it")
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(HBNBCommand().onecmd("help create"))
+            self.assertEqual(text, f.getvalue().strip())
+
+    def test_help_show(self):
+        text = ("Prints the string representation of an instance")
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(HBNBCommand().onecmd("help show"))
+            self.assertEqual(text, f.getvalue().strip())
+
+    def test_help_update(self):
+        text = ("Updates an instance based on the class name and id")
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(HBNBCommand().onecmd("help update"))
+            self.assertEqual(text, f.getvalue().strip())
+
     def test_help_destroy(self):
         text = ("Deletes an instances based on the class and id")
         with patch("sys.stdout", new=StringIO()) as f:
