@@ -1,6 +1,6 @@
 # AirBnB clone
 
-![Image](config/HBnB_logo_D.png)
+![Image](config/HBnB_logo_L.png)
 
 > This is the first part of the **AirBnB Clone** Project. The goal of the entire project is to deploy on your server a simple copy of the AirBnB website. All the features will not be implemented, only some of them to cover all fundamental concepts of the higher level programming track. The entire application won't be built all at once, but step by step with different projects.
 
@@ -10,23 +10,30 @@ The AirBnB clone project starts with this project; **The Console**. It is a comm
 
 ## The Console
 
-![Image](config/Web_static.png)
+![Image](config/0x01-HBnB-Web_static.png)
 
 This phase involves;
-- Creating your own data model
-- Manage (create, update, destroy, etc) objects via a console / command interpreter
-- Store and persist objects to a file (JSON file)
-The first piece is to manipulate a powerful storage system. This storage engine will give an abstraction between __*My object*__ and __*How they are stored and persisted*__. This means: from your console code (*the command interpreter itself*) and from the front-end and RestAPI you will build later, you won’t have to pay attention (take care) of how your objects are stored.
+- Creating your own **Data Model**
+- **Managing objects** (create, update, destroy, etc) via a console / command interpreter
+- **Store** and **Persist objects** to a file (JSON file)
+
+The first piece is to manipulate a powerful storage system. This storage engine will give an abstraction between __*My object*__ and __*How they are stored and persisted*__.
+> This means: from your console code (*the command interpreter itself*) and from the front-end and RestAPI you will build later, you won’t have to pay attention (take care) of how your objects are stored.
 
 This abstraction will also allow you to change the type of storage easily without updating all of your codebase. [`FileStorage`](https://github.com/omar-ao/AirBnB_clone/blob/master/models/engine/file_storage.py)
 
-The console will be a tool to validate this storage engine.
+The __*console*__ will be a tool to validate this storage engine.
 
 > **Web static** will involve creating the **HTML** of your application and template of each object. (*HTML/CSS*)
 
 ### How does it work ?
 
+<<<<<<< HEAD
 When the backend starts, an instance of `FileStorage`, named `storage`, is created by the command interpreter. This `storage` object is loaded or reloaded from class instances in the `file.json` (JSON file). As class instances undergo creation, updates, or deletion, the `storage` object records these changes in the `file.json`.
+=======
+When the backend starts, an instance of [`FileStorage`](https://github.com/omar-ao/AirBnB_clone/blob/master/models/engine/file_storage.py), named `storage`, is created by the command interpreter. This `storage` object is loaded or reloaded from class instances in the `file.json` (JSON file) (see [here](https://github.com/omar-ao/AirBnB_clone/blob/master/models/__init__.py)). As class instances undergo creation, updates, or deletion, the `storage` object __*records*__ these changes in the `file.json`.
+> (via the save method of the [BaseModel](https://github.com/omar-ao/AirBnB_clone/blob/master/models/base_model.py) class).
+>>>>>>> 5e965034b9f6ca13b9fb78342dd29aaf277c4828
 
 ### Using The Command Interpreter
 
@@ -99,14 +106,13 @@ $
 0x08 | count | `count <class name>` | `<class name>.count()` | retrieve the number of instances of a class
 
 **Allowed Classes**:
-- BaseModel
-- User
-- Place
-- State
-- City
-- Amenity
-- Review
-- User
+- [BaseModel](https://github.com/omar-ao/AirBnB_clone/blob/master/models/base_model.py)
+- [User](https://github.com/omar-ao/AirBnB_clone/blob/master/models/user.py)
+- [Place](https://github.com/omar-ao/AirBnB_clone/blob/master/models/place.py)
+- [State](https://github.com/omar-ao/AirBnB_clone/blob/master/models/state.py)
+- [City](https://github.com/omar-ao/AirBnB_clone/blob/master/models/city.py)
+- [Amenity](https://github.com/omar-ao/AirBnB_clone/blob/master/models/amenity.py)
+- [Review](https://github.com/omar-ao/AirBnB_clone/blob/master/models/review.py)
 
 > Usage illustrated below:
 
